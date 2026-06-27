@@ -1,0 +1,17 @@
+.vscode
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+*.pyz
+*.pywz
+*.pyzw
+*.pyzwz
+*.pyzwzw
+*.pyzwzwz
+logs/
+__pycache__/
+temp*
+*.log
+data/
+outputs/

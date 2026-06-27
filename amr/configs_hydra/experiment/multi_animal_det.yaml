@@ -1,0 +1,153 @@
+# @package _global_
+
+defaults:
+  - default.yaml
+
+GENERAL:
+  # TODO: Change the total steps and log steps according to the dataset size
+  TOTAL_STEPS: 100_000 
+  LOG_STEPS: 500 
+  VAL_STEPS: 100
+  VAL_EPOCHS: 10
+  CHECKPOINT_EPOCHS: 1
+  CHECKPOINT_SAVE_TOP_K: 1
+  NUM_WORKERS: 4
+  PREFETCH_FACTOR: 2
+  GRAD_ACCUM_STEPS: 32
+
+LOSS_WEIGHTS:
+  KEYPOINTS_3D: 5
+  KEYPOINTS_2D: 5
+  GLOBAL_ORIENT: 1  
+  POSE: 1  
+  BETAS: 0.5
+  BBOX: 1.0
+  GIOU: 1.0
+  CONF: 1.0
+  AUX_CONF: 1.0
+  DN_CONF: 1.0
+  DN_BBOX: 1.0
+  MASK: 0.5
+
+TRAIN:
+  LR: 1.25e-6
+  WEIGHT_DECAY: 1e-4
+  BATCH_SIZE: 1
+  LOSS_REDUCTION: mean
+  NUM_TRAIN_SAMPLES: 2
+  NUM_TEST_SAMPLES: 64
+  USE_FP16: true
+  FP16_TYPE: bfloat16
+
+MODEL:
+  NUM_ANIMALS: 30
+  CONF_THRESH: 0.5
+  DN_NUM_GROUPS: 5
+  DN_BOX_NOISE_SCALE: 0.4
+  IMAGE_SIZE: 512
+  IMAGE_MEAN: [0.485, 0.456, 0.406]
+  IMAGE_STD: [0.229, 0.224, 0.225]
+  BACKBONE:
+    TYPE: vit_512_384
+    PRETRAINED_WEIGHTS: ./data/backbone.pth
+    FROZEN_STAGES: -1
+    DROP_PATH_RATE: 0.0
+  DECODER:
+    TYPE: sam
+    DIM: 1024
+    DEPTH: 6
+    HEADS: 8
+    MLP_DIM: 1024
+    DIM_HEAD: 64
+    LAYER_SCALE_INIT: 0.0
+    DROP_RATE: 0.0
+    ATTN_DROP_RATE: 0.0
+    DROP_PATH_RATE: 0.0
+    FFN_TYPE: origin
+    ENABLE_TWOWAY: false
+    REPEAT_PE: true
+    FROZEN: false
+    CONDITION_TYPE: none
+    USE_INTRIN_CENTER: true
+    DO_INTERM_PREDS: true
+    DO_INTERM_SUP: true
+    DO_KEYPOINT_TOKENS: true
+    DO_HAND_DETECT_TOKENS: true
+    KEYPOINT_TOKEN_UPDATE: v2
+    KEYPOINT_TOKEN_UPDATE_COORD_EMB_USE_MLP: true
+    DO_KEYPOINT3D_TOKENS: true
+  PROMPT_ENCODER:
+    ENABLE: true
+    MAX_NUM_CLICKS: 2
+    PROMPT_KEYPOINTS: animals
+    FROZEN: false
+    KEYPOINT_SAMPLER:
+      TYPE: v1
+      WORST_RATIO: 0.8
+      KEYBODY_RATIO: 0.8
+      NEGATIVE_RATIO: 0.1
+      DUMMY_RATIO: 0.1
+      DISTANCE_THRESH: 0.0001
+    MASK_EMBED_TYPE: v2
+    MASK_PROMPT: v1
+  SMAL_HEAD:
+    MLP_DEPTH: 2
+    MLP_CHANNEL_DIV_FACTOR: 1
+  CAMERA_HEAD:
+    MLP_DEPTH: 2
+    MLP_CHANNEL_DIV_FACTOR: 1
+  ENABLE_BODY: true
+  MATCHER:
+    COST_CONF: 1.0
+    COST_BBOX: 1.0
+    COST_GIOU: 1.0
+    COST_KPTS: 10.0
+
+DATASETS:
+  GenZoov1:
+    ROOT_IMAGE: data/GenZooMultiAnimalv1/
+    JSON_FILE:
+      TRAIN: data/GenZooMultiAnimalv1/train_multi_animal.json
+      TEST: data/GenZooMultiAnimalv1/test_single_animal.json
+    WEIGHT: 0.5
+  # GENZOOP3:
+  #   ROOT_IMAGE: data/GenZooMultiAnimalv1/
+  #   JSON_FILE:
+  #     TRAIN: data/GenZooMultiAnimalv1/train_multi_animal_part3.json
+  #   WEIGHT: 1.0
+  ANIMAL3D:
+    ROOT_IMAGE: data/Animal3D/
+    JSON_FILE:
+      TRAIN: data/Animal3D/train_multi_animal.json
+      TEST: data/Animal3D/test_multi_animal.json
+    WEIGHT: 1.0
+  AnimalPose:
+    ROOT_IMAGE: data/AnimalPose/
+    JSON_FILE:
+      TRAIN: data/AnimalPose/train_multi_animal_clean_wmask.json
+    WEIGHT: 0.1
+  APTv2:
+    ROOT_IMAGE: data/APTv2/
+    JSON_FILE:
+      TRAIN: data/APTv2/train_multi_animal_clean_wmask.json
+      TEST: data/APTv2/test_multi_animal_wmask.json
+    WEIGHT: 0.4
+  AwA2:
+    ROOT_IMAGE: data/AwA2/
+    JSON_FILE:
+      TRAIN: data/AwA2/train_multi_animal_clean_wmask.json
+    WEIGHT: 0.4
+  StanfordExtra:
+    ROOT_IMAGE: data/StanfordExtra/
+    JSON_FILE:
+      TRAIN: data/StanfordExtra/train_multi_animal_clean_wmask.json
+    WEIGHT: 0.1
+  SAM3D:
+    ROOT_IMAGE: data/Herd3D/
+    JSON_FILE:
+      TRAIN: data/Herd3D/train_multi_animal.json
+    WEIGHT: 0.5
+
+WANDB: 
+  MODE: offline
+  ID: null

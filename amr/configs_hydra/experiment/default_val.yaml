@@ -1,0 +1,31 @@
+# @package _global_
+
+DATASETS:
+  Animal3D:
+    ROOT_IMAGE: data/Animal3D/
+    JSON_FILE:
+      TRAIN: data/Animal3D/train_multi_animal.json
+      TEST: data/Animal3D/test_multi_animal.json
+  APTv2:
+    ROOT_IMAGE: data/APTv2/
+    JSON_FILE:
+      TEST: data/APTv2/test_multi_animal_wmask.json
+  AnimalKingdom:
+    ROOT_IMAGE: data/AnimalKingdomTest_cropped/
+    JSON_FILE:
+      TEST: data/AnimalKingdomTest_cropped/test_multi_animal.json
+  CONFIG:
+    SCALE_FACTOR: 0.0
+    ROT_FACTOR: 0
+    TRANS_FACTOR: 0.0
+    COLOR_SCALE: 0.0
+    ROT_AUG_RATE: 0.0
+    TRANS_AUG_RATE: 0.0
+    DO_FLIP: False
+    FLIP_AUG_RATE: 0.0
+    EXTREME_CROP_AUG_RATE: 0.0
+    EXTREME_CROP_AUG_LEVEL: 1
+
+METRIC:
+  PCK_THRESHOLD: [0.05, 0.10, 0.15]
+    

@@ -1,0 +1,47 @@
+from setuptools import setup, find_packages
+
+print('Found packages:', find_packages())
+setup(
+    description='ECCV26 as a package',
+    name='ECCV26',
+    packages=find_packages(),
+    install_requires=[
+        'gdown',
+        'opencv-python',
+        'pyrender',
+        'pytorch-lightning',
+        'scikit-image',
+        'smplx==0.1.28',
+        'yacs',
+        'detectron2 @ git+https://gitclone.com/github.com/facebookresearch/detectron2',
+        'chumpy @ git+https://gitclone.com/github.com/mattloper/chumpy',
+        'mmcv==1.3.9',
+        'timm',
+        'einops',
+        'xtcocotools',
+        'pandas',
+        'open3d',
+        'gradio==5.1.0',
+        'pydantic==2.10.6',
+        'transformers @ git+https://github.com/huggingface/transformers',
+        'wandb',
+        'imageio-ffmpeg',
+        'webdataset',
+        'diffusers',
+        'roma',
+        'MoGe @ git+https://github.com/microsoft/MoGe.git',
+        'ninja',
+        'flash-attn',
+        'numpy==1.26.4',
+        'xformers==0.0.27.post2',
+    ],
+    extras_require={
+        'all': [
+            'hydra-core',
+            'hydra-submitit-launcher',
+            'hydra-colorlog',
+            'pyrootutils',
+            'rich',
+        ],
+    },
+)
