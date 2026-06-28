@@ -37,7 +37,7 @@ def get_img_idx_from_rgb_path(p: Path) -> int:
 def atomic_write(path: Path, pil_img: Image.Image):
     path.parent.mkdir(parents=True, exist_ok=True)
 
-    # 让 tmp 的“最后后缀”依然是原来的 suffix，比如 .png
+
     tmp = path.with_name(path.stem + ".tmp" + path.suffix)  # xxx.tmp.png
 
     pil_img.save(tmp, format=path.suffix.lstrip(".").upper())
@@ -81,7 +81,7 @@ def load_species_file(path: Path) -> List[str]:
     return out
 
 def cleanup_cuda(pipe=None):
-    # 可选：清 VAE cache，防止越跑越大
+
     if pipe is not None and hasattr(pipe, "vae"):
         if hasattr(pipe.vae, "_feat_map"):
             pipe.vae._feat_map = None
@@ -196,9 +196,9 @@ def main():
         controlnet=controlnet,
         torch_dtype=torch.bfloat16,
     ).to("cuda")
-    pipe.enable_attention_slicing("max")   # 降注意力峰值
-    pipe.vae.enable_slicing()             # 降 VAE 峰值
-    pipe.vae.enable_tiling()              # 进一步降 VAE 峰值（会慢一点但稳）
+    pipe.enable_attention_slicing("max")   
+    pipe.vae.enable_slicing()             
+    pipe.vae.enable_tiling()              
 
     # Optional perf knobs
     if args.enable_xformers:
@@ -304,7 +304,6 @@ def main():
                 continue
 
             # generator: per-image deterministic seed
-            # diffusers 支持 list[Generator]（多数 pipeline OK），不行就退化成单个 generator
             generators = []
             for (rgb_path, img_id, img_dir, out_gen, out_ovl) in metas:
                 s = stable_seed(str(rgb_path), args.seed)
