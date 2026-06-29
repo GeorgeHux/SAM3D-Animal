@@ -20,6 +20,10 @@ MAPPING = [0, 1, -1, 7, 10, 13, 16, 4, 5, 8, 11, 14, -1, -1, 6, 9, 12, 15, 3, -1
 BBOX_EXPAND_FACTOR = 1.2
 
 
+def ensure_egl_rendering():
+    os.environ["PYOPENGL_PLATFORM"] = "egl"
+
+
 def load_image_paths(input_path: str):
     """Load image paths from a single image file or a folder of images."""
     if os.path.isfile(input_path):
@@ -431,6 +435,7 @@ def render_on_full_frame(
     renderer, image_rgb, vertices_to_render, cam_t_to_render, focal_length
 ):
     """Render reconstructed meshes onto the original full-resolution image."""
+    ensure_egl_rendering()
     h, w = image_rgb.shape[:2]
     n = vertices_to_render.shape[0]
     vertices_list = [vertices_to_render[i].cpu().numpy() for i in range(n)]
@@ -452,6 +457,7 @@ def render_on_full_frame(
 
 def render_on_crop(renderer, batch, vertices_to_render, cam_t_to_render, device, cfg):
     """Render reconstructed meshes onto the model-input crop view."""
+    ensure_egl_rendering()
     n = vertices_to_render.shape[0]
     focal_length = batch['cam_int'][:, 0, 0]   # [1]
 
@@ -494,6 +500,7 @@ def render_on_crop(renderer, batch, vertices_to_render, cam_t_to_render, device,
 
 def render_per_crop_full_frame(renderer, image_rgb, all_verts, all_cam_t, cfg):
     """Render all per-crop predictions onto the original full-resolution image."""
+    ensure_egl_rendering()
     h, w = image_rgb.shape[:2]
     focal_length = float(cfg.EXTRA.FOCAL_LENGTH)
     cam_view = renderer.render_rgba_multiple(
@@ -531,6 +538,7 @@ def main(args):
             device=device,
             return_pose_image=True
         )
+        ensure_egl_rendering()
     else:
         vitpose_model = None
 
