@@ -2,7 +2,11 @@
 
 [**Arxiv**](https://arxiv.org/abs/2605.07604) | [**Project Page**](http://georgehux.com/SAM3D-Animal-project-page/)
 
-[![Teaser](teaser/teaser.mp4)](teaser/teaser.mp4)
+<p align="center">
+  <video width="100%" autoplay muted loop playsinline controls>
+    <source src="https://raw.githubusercontent.com/georgehux/SAM3D-Animal/main/teaser/teaser.mp4" type="video/mp4">
+  </video>
+</p>
 
 ## Environment Setup
 ```bash
