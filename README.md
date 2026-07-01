@@ -2,7 +2,7 @@
 
 [**Arxiv**](https://arxiv.org/abs/2605.07604) | [**Project Page**](http://georgehux.com/SAM3D-Animal-project-page/)
 
-[![Teaser](teaser/teaser.png)](teaser/teaser.png)
+[![Teaser](teaser/teaser.png)](teaser/teaser.mp4)
 
 ## Environment Setup
 ```bash
