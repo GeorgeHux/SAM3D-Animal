@@ -1,6 +1,6 @@
 # SAM 3D Animal: Promptable Animal 3D Reconstruction from Images in the Wild
 
-[**Arxiv**](https://arxiv.org/abs/2605.07604) | [**Project Page**](http://georgehux.com/SAM3D-Animal-project-page/)
+[**Arxiv**](https://arxiv.org/abs/2605.07604) | [**Project Page**](https://georgehux.com/SAM3D-Animal-project-page/)
 
 https://github.com/user-attachments/assets/7ce136fe-33e2-4562-a0e4-8f509e6754a9
 
